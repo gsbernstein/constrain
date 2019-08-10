@@ -5,17 +5,61 @@
 import UIKit
 
 public enum ConstraintIdentifier: String {
-    case top = ".top"
-    case leading = ".leading"
-    case trailing = ".trailing"
-    case bottom = ".bottom"
-    case topSafe = ".topSafe"
-    case bottomSafe = ".bottomSafe"
-    case height = ".height"
-    case width = ".width"
-    case centerX = ".centerX"
-    case centerY = ".centerY"
-    case aspectRatio = ".aspectRatio"
+    case top =          ".top"
+    case leading =      ".leading"
+    case trailing =     ".trailing"
+    case bottom =       ".bottom"
+    case topSafe =      ".topSafe"
+    case bottomSafe =   ".bottomSafe"
+    case height =       ".height"
+    case width =        ".width"
+    case centerX =      ".centerX"
+    case centerY =      ".centerY"
+    case aspectRatio =  ".aspectRatio"
+}
+
+public enum YAxisIdentifier: RawRepresentable {
+    public typealias RawValue = ConstraintIdentifier
+    
+    case top
+    case centerY
+    case bottom
+    
+    case topSafe
+    case bottomSafe
+    
+    public init?(rawValue: ConstraintIdentifier) {
+        switch rawValue {
+        case .top:          self = .top
+        case .bottom:       self = .bottom
+        case .topSafe:      self = .topSafe
+        case .bottomSafe:   self = .bottomSafe
+        case .centerY:      self = .centerY
+        default: return nil
+        }
+    }
+    
+    public var rawValue: ConstraintIdentifier {
+        switch self {
+        case .top: return .top
+        case .centerY: return .centerY
+        case .bottom: return .bottom
+        case .topSafe: return .topSafe
+        case .bottomSafe: return .bottomSafe
+        }
+    }
+}
+
+public enum XAxisIdentifier {
+    case leading
+    case centerX
+    case trailing
+}
+
+public enum DimensionIdentifier {
+    case width
+    case height
+    case aspectRatio
 }
 
 public typealias Relationship = NSLayoutConstraint.Relation
@@ -72,6 +116,35 @@ extension Constraints {
         constraint.priority = priority
         finalizeConstraint(constraint, identifier)
         return self
+    }
+    
+    internal func applyAnchorConstraint(anchor2: NSLayoutYAxisAnchor?,
+                                        identifier: YAxisIdentifier,
+                                        constant: CGFloat,
+                                        relationship: Relationship = .equal,
+                                        priority: UILayoutPriority) -> Constraints {
+        
+        guard let view = view else {
+            print("View fell out of memory.")
+            return self
+        }
+        
+        let superview = view.superview
+        let anchor1: NSLayoutYAxisAnchor
+        let defaultAnchor2: NSLayoutYAxisAnchor?
+        
+        switch  identifier {
+        case .top:      anchor1 = view.topAnchor;       defaultAnchor2 = superview?.topAnchor
+        case .bottom:   anchor1 = view.bottomAnchor;    defaultAnchor2 = superview?.bottomAnchor
+        case .topSafe:  anchor1 = view.topAnchor;       defaultAnchor2 = superview?.topAnchorSafe
+        case .bottomSafe: anchor1 = view.bottomAnchor;  defaultAnchor2 = superview?.bottomAnchorSafe
+        case .centerY:  anchor1 = view.centerYAnchor;   defaultAnchor2 = superview?.centerYAnchor
+        }
+        guard let anchor2 = anchor2 ?? defaultAnchor2 else {
+            print("No superview found.")
+            return self
+        }
+        return applyAnchorConstraint(anchor1: anchor1, anchor2: anchor2, identifier: identifier.rawValue, constant: constant, relationship: relationship, priority: priority)
     }
     
     internal func applyDimensionConstraint(

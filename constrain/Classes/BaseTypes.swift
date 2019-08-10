@@ -12,15 +12,21 @@ public extension Constraints {
     /// Constrain the view to a layout anchor or to the top of the superview when no anchor is provided.
     @discardableResult
     func top(to anchor: NSLayoutYAxisAnchor? = nil, constant: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
-        guard
-            let view = view,
-            let anchor = anchor ?? view.superview?.topAnchor
-            else {
-                print("Attempting to create top constraint without a reference anchor.")
-                return self
-        }
-        return applyAnchorConstraint(anchor1: view.topAnchor, anchor2: anchor, identifier: .top, constant: constant, relationship: relationship, priority: priority)
+        return applyAnchorConstraint(anchor2: anchor, identifier: .top, constant: constant, relationship: relationship, priority: priority)
     }
+    
+//    /// Constrain the view to a layout anchor or to the top of the superview when no anchor is provided.
+//    @discardableResult
+//    func top(to anchor: NSLayoutYAxisAnchor? = nil, constant: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
+//        guard
+//            let view = view,
+//            let anchor = anchor ?? view.superview?.topAnchor
+//            else {
+//                print("Attempting to create top constraint without a reference anchor.")
+//                return self
+//        }
+//        return applyAnchorConstraint(anchor1: view.topAnchor, anchor2: anchor, identifier: .top, constant: constant, relationship: relationship, priority: priority)
+//    }
     
     /// Constrain the view to a layout anchor or to the bottom of the superview when no anchor is provided.
     @discardableResult
