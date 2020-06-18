@@ -37,6 +37,7 @@ Notes:
  - Adding subviews is handled by `constrainSubview()`, `constrainIn()`, `constrainSibling()`, `constrainSiblingToTrailing()`, or `constrainSiblingToBottom()`. If you need to add more constraints at a later time, just call `constrain` subsequently to avoid redoing it, although there's no harm in it.
  - `translatesAutoresizingMaskIntoConstraints` is always set to false
  - Most methods can also be called with View Controllers, but only the `constrainChild()` method handles parent/child UIViewController relationships. Call `remove()` to undo it.
+ - Trailing and Bottom constraints invert the input value so it functions more as padding. Be careful with this if you want to change the constant in the future, as the inversion will not be preserved!
 
 ## Author
 
