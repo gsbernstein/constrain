@@ -32,12 +32,30 @@ containerView.constainSubview(newView).fillSafely()
 centeredView.constrainIn(containerView).center()
 ```
 
+You can start the chain by typing any of these, depending on what you’re trying to do:
+Called on view to be constrained:
+ - constrain
+ - constrainIn() - invertes the order (called on the child, parent is the argument
+ 
+ Called on superview or VC of superview:
+ - constrainSubview()
+ - constrainChild() - also handles view controller parent/child relationships, argument must be a VC. Optional argument for if you want the view to be a subview of a different view than the VC's view.
+ - constrainSibling()
+ - constrainSiblingToBottom()
+ - constrainSiblingToTrailing()
+
+Then you chain the constraints you want to make. They parameters default to zero padding and to relevant anchors on the superview, so for example you can just use `view.constrain.top()` if you want to constrain it to the superview’s top with no margin.
+
+There’s also compound ones that handle common sets of constraints, like fillWidth() is leading + trailing, fillHeight() is top + bottom, and fill() is all 4.
+
+There are "safe" versions of top and bottom that use the safe areas, and corresponsing fillSafely and fillHeightSafely. There's also centerSafely.
+
 Notes:
  - All constraints are enabled by default
  - Adding subviews is handled by `constrainSubview()`, `constrainIn()`, `constrainSibling()`, `constrainSiblingToTrailing()`, or `constrainSiblingToBottom()`. If you need to add more constraints at a later time, just call `constrain` subsequently to avoid redoing it, although there's no harm in it.
  - `translatesAutoresizingMaskIntoConstraints` is always set to false
  - Most methods can also be called with View Controllers, but only the `constrainChild()` method handles parent/child UIViewController relationships. Call `remove()` to undo it.
- - Trailing and Bottom constraints invert the input value so it functions more as padding. Be careful with this if you want to change the constant in the future, as the inversion will not be preserved!
+ - Trailing and Bottom constraints invert the input constant so it functions more as padding. Be careful with this if you want to change the constant in the future, as the inversion will not be preserved!
 
 ## Author
 
