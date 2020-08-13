@@ -91,8 +91,9 @@ public extension Constraints {
 // Height and width stuff
 public extension Constraints {
     /// Set the height constraint to a constant
+    // Can't have the constant param be anonymous or have a default or it would overload the anchor equivalent
     @discardableResult
-    func height(_ constant: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
+    func height(to constant: CGFloat, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
         guard let view = view else {
             print("View fell out of memory.")
             return self
@@ -111,8 +112,9 @@ public extension Constraints {
     }
     
     /// Set the width constraint to a constant
+    // Can't have the constant param be anonymous or have a default or it would overload the anchor equivalent
     @discardableResult
-    func width(_ constant: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
+    func width(to constant: CGFloat, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
         guard let view = view else {
             print("View fell out of memory.")
             return self
@@ -183,8 +185,8 @@ public extension Constraints {
     @discardableResult
     func size(width: CGFloat, height: CGFloat, by relationship: Relationship = .equal) -> Constraints {
         return self
-            .width(width, by: relationship)
-            .height(height, by: relationship)
+            .width(to: width, by: relationship)
+            .height(to: height, by: relationship)
     }
     
     /// Constraint the height and width of one view to those of another
