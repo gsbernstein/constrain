@@ -70,6 +70,16 @@ public extension UIView {
     }
     
     @discardableResult
+    func constrainToSibling(_ sibling: UIView) -> Constraints {
+        if let superview = sibling.superview {
+            superview.addSubview(self)
+        } else {
+            print("Attempting to constrain to sibling without a superview.")
+        }
+        return self.constrain
+    }
+    
+    @discardableResult
     func constrainSiblingToTrailing(_ sibling: UIView,
                                     constant: CGFloat = 0,
                                     by relationship: Relationship = .equal,
@@ -78,11 +88,27 @@ public extension UIView {
     }
     
     @discardableResult
+    func constrainTrailingSibling(_ sibling: UIView,
+                                  constant: CGFloat = 0,
+                                  by relationship: Relationship = .equal,
+                                  priority: UILayoutPriority = .required) -> Constraints {
+        return constrainToSibling(sibling).leading(to: sibling.trailingAnchor, constant: constant, by: relationship, priority: priority)
+    }
+    
+    @discardableResult
     func constrainSiblingToBottom(_ sibling: UIView,
                                   constant: CGFloat = 0,
                                   by relationship: Relationship = .equal,
                                   priority: UILayoutPriority = .required) -> Constraints {
         return constrainSibling(sibling).top(to: self.bottomAnchor, constant: constant, by: relationship, priority: priority)
+    }
+    
+    @discardableResult
+    func constrainBelowSibling(_ sibling: UIView,
+                               constant: CGFloat = 0,
+                               by relationship: Relationship = .equal,
+                               priority: UILayoutPriority = .required) -> Constraints {
+        return constrainToSibling(sibling).top(to: sibling.bottomAnchor, constant: constant, by: relationship, priority: priority)
     }
     
 }
