@@ -38,10 +38,15 @@ public extension UIImage {
 public extension UIImageView {
     @discardableResult
     func constrainAspectToImage() -> Constraints {
-        guard let imageAspect = image?.aspectRatio else {
+        guard let image = image else {
             print("Image is not set.")
             return constrain
         }
-        return constrain.aspectRatio(imageAspect)
+        return constrainAspect(to: image)
+    }
+    
+    @discardableResult
+    func constrainAspect(to image: UIImage) -> Constraints {
+        return constrain.aspectRatio(image.aspectRatio)
     }
 }
