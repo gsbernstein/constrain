@@ -42,7 +42,7 @@ extension Constraints {
         let allExistingConstraints = layoutConstraintsWithIdentifier(identifier)
         view?.removeConstraints(allExistingConstraints)
         constraints.removeValue(forKey: identifier)
-        allConstraints.removeAll { $0.identifier == identifier.rawValue}
+        allConstraints.removeAll { $0.identifier == identifier.rawValue }
         return self
     }
         
