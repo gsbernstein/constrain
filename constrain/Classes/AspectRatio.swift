@@ -20,7 +20,7 @@ public extension Constraints {
             return self
         }
         if replacingExisting {
-            removeConstraintWithIdentifier(.aspectRatio)
+            removeConstraintsWithIdentifier(.aspectRatio)
         }
         return applyDimensionMultiplier(dimension1: view.widthAnchor, dimension2: view.heightAnchor, identifier: ConstraintIdentifier.aspectRatio, constant: 0, multiplier: ratio, relationship: relationship, priority: priority)
     }

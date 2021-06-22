@@ -30,14 +30,19 @@ extension Constraints {
         return constraints[identifier]
     }
     
+    /// uses all constraints on the view, not just the stored ones
+    public func layoutConstraintsWithIdentifier(_ identifier: ConstraintIdentifier) -> [NSLayoutConstraint] {
+        view?.constraints.filter {
+            $0.identifier ?? "" == identifier.rawValue
+        } ?? []
+    }
+    
     @discardableResult
-    public func removeConstraintWithIdentifier(_ identifier: ConstraintIdentifier) -> Self {
-        guard let constraint = layoutConstraintWithIdentifier(identifier) else { return self }
-        view?.removeConstraint(constraint)
-        constraints[identifier] = nil
-        if let index = allConstraints.firstIndex(of: constraint) {
-            allConstraints.remove(at: index)
-        }
+    public func removeConstraintsWithIdentifier(_ identifier: ConstraintIdentifier) -> Self {
+        let allExistingConstraints = layoutConstraintsWithIdentifier(identifier)
+        view?.removeConstraints(allExistingConstraints)
+        constraints.removeValue(forKey: identifier)
+        allConstraints.removeAll { $0.identifier == identifier.rawValue}
         return self
     }
         
