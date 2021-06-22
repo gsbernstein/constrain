@@ -14,7 +14,7 @@ public extension Constraints {
     /// Checks that ratio is finite before applying (avoid divide by zero errors)
     /// Multiplier is not editable, so you need to replace this constraint to change the ratio, hence the optional parameter
     @discardableResult
-    func aspectRatio(_ ratio: CGFloat, by relationship: Relationship = .equal, priority: UILayoutPriority = .required, replacingExisting: Bool = false) -> Constraints {
+    func aspectRatio(_ ratio: CGFloat, by relationship: Relationship = .equal, priority: UILayoutPriority = .required, replacingExisting: Bool = true) -> Constraints {
         guard let view = view else {
             print("View fell out of memory.")
             return self
