@@ -31,7 +31,15 @@ public extension UIImage {
     /// may return NaN, but I decided this is preferable to Nil
     /// constrain.aspectRatio() checks for `.isFinite` before setting to avoid crash
     var aspectRatio: CGFloat {
-        return size.width/size.height
+        return size.aspectRatio
+    }
+}
+
+public extension CGSize {
+    /// may return NaN, but I decided this is preferable to Nil
+    /// constrain.aspectRatio() checks for `.isFinite` before setting to avoid crash
+    var aspectRatio: CGFloat {
+        return width/height
     }
 }
 
