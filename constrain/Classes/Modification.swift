@@ -32,7 +32,7 @@ extension Constraints {
     
     /// uses all constraints on the view, not just the stored ones
     public func layoutConstraintsWithIdentifier(_ identifier: ConstraintIdentifier) -> [NSLayoutConstraint] {
-        view?.constraints.filter {
+        view?.allParticipatingConstraints.filter {
             $0.identifier ?? "" == identifier.rawValue
         } ?? []
     }
@@ -72,4 +72,20 @@ extension Constraints {
         return self
     }
     
+}
+
+public extension UIView {
+    var allParticipatingConstraints: [NSLayoutConstraint] {
+        let result = constraints
+        var superview = self.superview
+        while superview != nil {
+            for constraint in superview.constraints {
+                if (constraint.firstItem == self || constraint.secondItem == self) {
+                    result.append(constraint)
+                }
+            }
+            superview = superview.superview
+        }
+        return result
+    }
 }
