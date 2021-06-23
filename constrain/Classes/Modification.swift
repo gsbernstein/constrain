@@ -18,7 +18,7 @@ public enum ConstraintIdentifier: String {
     case centerY = "centerY"
     case aspectRatio = "aspectRatio"
 
-    // Not actuallyconstraints:
+    // Not actually constraints:
     case cornerRadius = "cornerRadius"
     case size = "size" // combines width and height
 }
