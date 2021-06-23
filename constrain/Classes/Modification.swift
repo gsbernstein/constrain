@@ -76,7 +76,7 @@ extension Constraints {
 
 public extension UIView {
     var allParticipatingConstraints: [NSLayoutConstraint] {
-        let result = constraints
+        let result = self.constraints
         var superview = self.superview
         while superview != nil {
             for constraint in superview.constraints {
