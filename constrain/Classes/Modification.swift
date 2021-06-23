@@ -6,21 +6,21 @@
 //
 
 public enum ConstraintIdentifier: String {
-    case top = ".top"
-    case leading = ".leading"
-    case trailing = ".trailing"
-    case bottom = ".bottom"
-    case topSafe = ".topSafe"
-    case bottomSafe = ".bottomSafe"
-    case height = ".height"
-    case width = ".width"
-    case centerX = ".centerX"
-    case centerY = ".centerY"
-    case aspectRatio = ".aspectRatio"
+    case top = "top"
+    case leading = "leading"
+    case trailing = "trailing"
+    case bottom = "bottom"
+    case topSafe = "topSafe"
+    case bottomSafe = "bottomSafe"
+    case height = "height"
+    case width = "width"
+    case centerX = "centerX"
+    case centerY = "centerY"
+    case aspectRatio = "aspectRatio"
 
-    // Not actually constraints:
-    case cornerRadius = ".cornerRadius"
-    case size = ".size" // size combines .width and .height
+    // Not actuallyconstraints:
+    case cornerRadius = "cornerRadius"
+    case size = "size" // combines width and height
 }
 
 extension Constraints {
@@ -33,7 +33,7 @@ extension Constraints {
     /// uses all constraints on the view, not just the stored ones
     public func layoutConstraintsWithIdentifier(_ identifier: ConstraintIdentifier) -> [NSLayoutConstraint] {
         view?.allParticipatingConstraints.filter {
-            $0.identifier ?? "" == identifier.rawValue
+            $0.identifier ?? "" == self.identifier(for: identifier)
         } ?? []
     }
     
