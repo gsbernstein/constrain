@@ -75,16 +75,20 @@ extension Constraints {
 }
 
 public extension UIView {
+    /// UIView.constraints only returns constraints *owned* by that view.
+    /// adapted from https://stackoverflow.com/questions/24418884/remove-all-constraints-affecting-a-uiview
     var allParticipatingConstraints: [NSLayoutConstraint] {
-        let result = self.constraints
-        var superview = self.superview
-        while superview != nil {
+        var result = self.constraints
+        var _superview = self.superview
+        while let superview = _superview {
             for constraint in superview.constraints {
-                if (constraint.firstItem == self || constraint.secondItem == self) {
+                if let first = constraint.firstItem as? UIView, first == self {
+                    result.append(constraint)
+                } else if let second = constraint.secondItem as? UIView, second == self {
                     result.append(constraint)
                 }
             }
-            superview = superview.superview
+            _superview = superview.superview
         }
         return result
     }
