@@ -68,6 +68,17 @@ public extension Constraints {
         return applyAnchorConstraint(anchor1: view.bottomAnchor, anchor2: anchor, identifier: .bottom, constant: -constant, relationship: relationship, priority: priority)
     }
     
+    @discardableResult @available(iOS 15.0, *)
+    func pinToKeyboard(padding: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
+        guard let view = view,
+              let anchor = view.superview?.keyboardLayoutGuide.topAnchor
+        else {
+            print("Attempting to create keyboard constraint without a reference anchor.")
+            return self
+        }
+        return applyAnchorConstraint(anchor1: view.bottomAnchor, anchor2: anchor, identifier: .bottom, constant: -padding, relationship: relationship, priority: priority)
+    }
+    
     /// iOS 11 introduced safe area layout constraints.
     /// When filling the native UIViewController view, consider a method that aligns to the safe area.
     @discardableResult
