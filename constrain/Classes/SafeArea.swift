@@ -48,10 +48,10 @@ public extension Constraints {
     @discardableResult
     func topSafe(_ constant: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
         guard let view = view,
-            let anchor = view.superview?.topAnchorSafe
-            else {
-                print("Attempting to create top constraint without a reference anchor.")
-                return self
+              let anchor = view.superview?.topAnchorSafe
+        else {
+            print("Attempting to create top constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.topAnchor, anchor2: anchor, identifier: .top, constant: constant, relationship: relationship, priority: priority)
     }
@@ -60,12 +60,23 @@ public extension Constraints {
     @discardableResult
     func bottomSafe(_ constant: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
         guard let view = view,
-            let anchor = view.superview?.bottomAnchorSafe
-            else {
-                print("Attempting to create bottom constraint without a reference anchor.")
-                return self
+              let anchor = view.superview?.bottomAnchorSafe
+        else {
+            print("Attempting to create bottom constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.bottomAnchor, anchor2: anchor, identifier: .bottom, constant: -constant, relationship: relationship, priority: priority)
+    }
+    
+    @discardableResult @available(iOS 15.0, *)
+    func pinToKeyboard(padding: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
+        guard let view = view,
+              let anchor = view.superview?.keyboardLayoutGuide.topAnchor
+        else {
+            print("Attempting to create keyboard constraint without a reference anchor.")
+            return self
+        }
+        return applyAnchorConstraint(anchor1: view.bottomAnchor, anchor2: anchor, identifier: .bottom, constant: -padding, relationship: relationship, priority: priority)
     }
     
     /// iOS 11 introduced safe area layout constraints.
@@ -108,9 +119,9 @@ public extension Constraints {
         guard
             let view = view,
             let anchor = view2?.centerXAnchorSafe ?? view.superview?.centerXAnchor
-            else {
-                print("Attempting to create centerX constraint without a reference anchor.")
-                return self
+        else {
+            print("Attempting to create centerX constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.centerXAnchor, anchor2: anchor, identifier: .centerX, constant: constant, relationship: relationship, priority: priority)
     }
@@ -121,9 +132,9 @@ public extension Constraints {
         guard
             let view = view,
             let anchor = view2?.centerYAnchorSafe ?? view.superview?.centerYAnchorSafe
-            else {
-                print("Attempting to create centerY constraint without a reference anchor.")
-                return self
+        else {
+            print("Attempting to create centerY constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.centerYAnchor, anchor2: anchor, identifier: .centerY, constant: constant, relationship: relationship, priority: priority)
     }
