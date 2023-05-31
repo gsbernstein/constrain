@@ -15,9 +15,9 @@ public extension Constraints {
         guard
             let view = view,
             let anchor = anchor ?? view.superview?.topAnchor
-            else {
-                print("Attempting to create top constraint without a reference anchor.")
-                return self
+        else {
+            print("Attempting to create top constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.topAnchor, anchor2: anchor, identifier: .top, constant: constant, relationship: relationship, priority: priority)
     }
@@ -28,9 +28,9 @@ public extension Constraints {
         guard
             let view = view,
             let anchor = anchor ?? view.superview?.bottomAnchor
-            else {
-                print("Attempting to create bottom constraint without a reference anchor.")
-                return self
+        else {
+            print("Attempting to create bottom constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.bottomAnchor, anchor2: anchor, identifier: .bottom, constant: -constant, relationship: relationship, priority: priority)
     }
@@ -41,9 +41,9 @@ public extension Constraints {
         guard
             let view = view,
             let anchor = anchor ?? view.superview?.leadingAnchor
-            else {
-                print("Attempting to create leading constraint without a reference anchor.")
-                return self
+        else {
+            print("Attempting to create leading constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.leadingAnchor, anchor2: anchor, identifier: .leading, constant: constant, relationship: relationship, priority: priority)
     }
@@ -54,9 +54,9 @@ public extension Constraints {
         guard
             let view = view,
             let anchor = anchor ?? view.superview?.trailingAnchor
-            else {
-                print("Attempting to create trailing constraint without a reference anchor.")
-                return self
+        else {
+            print("Attempting to create trailing constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.trailingAnchor, anchor2: anchor, identifier: .trailing, constant: -constant, relationship: relationship, priority: priority)
     }
@@ -67,9 +67,9 @@ public extension Constraints {
         guard
             let view = view,
             let anchor = anchor ?? view.superview?.centerXAnchor
-            else {
-                print("Attempting to create centerX constraint without a reference anchor.")
-                return self
+        else {
+            print("Attempting to create centerX constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.centerXAnchor, anchor2: anchor, identifier: .centerX, constant: constant, relationship: relationship, priority: priority)
     }
@@ -80,9 +80,9 @@ public extension Constraints {
         guard
             let view = view,
             let anchor = anchor ?? view.superview?.centerYAnchor
-            else {
-                print("Attempting to create centerY constraint without a reference anchor.")
-                return self
+        else {
+            print("Attempting to create centerY constraint without a reference anchor.")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.centerYAnchor, anchor2: anchor, identifier: .centerY, constant: constant, relationship: relationship, priority: priority)
     }
@@ -104,9 +104,9 @@ public extension Constraints {
     @discardableResult
     func height(to anchor: NSLayoutDimension? = nil, constant: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
         guard let view = view,
-            let anchor2 = anchor ?? view.superview?.heightAnchor else {
-                print("Trying to create height constraint without reference anchor")
-                return self
+              let anchor2 = anchor ?? view.superview?.heightAnchor else {
+            print("Trying to create height constraint without reference anchor")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.heightAnchor, anchor2: anchor2, identifier: .height, constant: constant, relationship: relationship, priority: priority)
     }
@@ -125,9 +125,9 @@ public extension Constraints {
     @discardableResult
     func width(to anchor: NSLayoutDimension? = nil, constant: CGFloat = 0.0, by relationship: Relationship = .equal, priority: UILayoutPriority = .required) -> Constraints {
         guard let view = view,
-            let anchor2 = anchor ?? view.superview?.widthAnchor else {
-                print("Trying to create width constraint without reference anchor")
-                return self
+              let anchor2 = anchor ?? view.superview?.widthAnchor else {
+            print("Trying to create width constraint without reference anchor")
+            return self
         }
         return applyAnchorConstraint(anchor1: view.widthAnchor, anchor2: anchor2, identifier: .width, constant: constant, relationship: relationship, priority: priority)
     }
