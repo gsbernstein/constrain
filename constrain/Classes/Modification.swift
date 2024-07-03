@@ -40,7 +40,7 @@ extension Constraints {
     @discardableResult
     public func removeConstraintsWithIdentifier(_ identifier: ConstraintIdentifier) -> Self {
         let allExistingConstraints = layoutConstraintsWithIdentifier(identifier)
-        view?.removeConstraints(allExistingConstraints)
+        NSLayoutConstraint.deactivate(allExistingConstraints)
         constraints.removeValue(forKey: identifier)
         allConstraints.removeAll { $0.identifier == identifier.rawValue }
         return self
