@@ -9,9 +9,9 @@ import UIKit
 
 public extension UIViewController {
     @discardableResult
+    @available(*, deprecated, renamed: "UIViewController.constrainChild(_:)", message: "Can't add VC without parent/child relationship")
     func constrainSubview(_ viewController: UIViewController) -> Constraints {
-        view.addSubview(viewController.view)
-        return viewController.view.constrain
+        constrainChild(viewController)
     }
     
     @discardableResult
@@ -42,6 +42,7 @@ public extension UIViewController {
 
 public extension UIView {
     @discardableResult
+    @available(*, deprecated, message: "Can't add VC without parent/child relationship, use constrainChild(_: to:) from the parent VC")
     func constrainSubview(_ viewController: UIViewController) -> Constraints {
         addSubview(viewController.view)
         return viewController.view.constrain
